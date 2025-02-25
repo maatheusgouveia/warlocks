@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 import { AppService } from './app.service';
@@ -7,6 +8,7 @@ import { AppController } from './app.controller';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { ArticlesModule } from './modules/articles/articles.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -29,10 +31,14 @@ import { ArticlesModule } from './modules/articles/articles.module';
         limit: 100,
       },
     ]),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
   ],
   controllers: [AppController],
   providers: [
     AppService,
+    JwtService,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
