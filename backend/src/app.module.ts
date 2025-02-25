@@ -1,18 +1,22 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthGuard } from './modules/auth/auth.guard';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
 import { ArticlesModule } from './modules/articles/articles.module';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     ArticlesModule,
+    UsersModule,
+    AuthModule,
     PrismaModule,
     ThrottlerModule.forRoot([
       {

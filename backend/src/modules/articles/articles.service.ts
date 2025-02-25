@@ -10,4 +10,18 @@ export class ArticlesService {
       where: {},
     });
   }
+
+  async createArticle(data: any) {
+    return this.prisma.article.create({
+      data,
+    });
+  }
+
+  async deleteArticle(id: string) {
+    return this.prisma.article.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }

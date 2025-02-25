@@ -5,9 +5,12 @@ import { JWT_SECRET } from './constants';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
+import { UsersService } from '../users/users.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
   imports: [
+    PrismaModule,
     UsersModule,
     JwtModule.register({
       global: true,
@@ -15,7 +18,7 @@ import { UsersModule } from '../users/users.module';
       signOptions: { expiresIn: '1d' },
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, UsersService],
   controllers: [AuthController],
   exports: [AuthService],
 })
