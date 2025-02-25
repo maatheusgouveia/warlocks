@@ -7,10 +7,13 @@ import {
   Post,
   Body,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
+
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user';
 import { Public } from 'src/decorators/public.decorator';
 
+@ApiBearerAuth('authorization')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

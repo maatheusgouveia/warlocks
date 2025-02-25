@@ -7,10 +7,12 @@ import {
   Post,
   Request,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article';
 
+@ApiBearerAuth('authorization')
 @Controller('articles')
 export class ArticlesController {
   constructor(private articlesService: ArticlesService) {}

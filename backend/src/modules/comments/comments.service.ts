@@ -18,7 +18,6 @@ export class CommentsService {
   }
 
   async createComment(data) {
-    console.log(data);
     return this.prisma.comment.create({
       data,
     });

@@ -7,8 +7,8 @@ import { Public } from './decorators/public.decorator';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Public()
   @Get()
+  @Public()
   getHello(): string {
     return this.appService.getHello();
   }

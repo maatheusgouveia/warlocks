@@ -7,10 +7,12 @@ import {
   Post,
   Request,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment';
 
+@ApiBearerAuth('authorization')
 @Controller('comments')
 export class CommentsController {
   constructor(private commentsService: CommentsService) {}
