@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Request,
+} from '@nestjs/common';
 
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article';
@@ -13,7 +21,18 @@ export class ArticlesController {
   }
 
   @Post()
-  async createArticle(@Body() createArticleDto: CreateArticleDto) {
-    return this.articlesService.createArticle(createArticleDto);
+  async createArticle(@Body() data: CreateArticleDto, @Request() req) {
+    return this.articlesService.createArticle({
+      ...data,
+      authorId: req.userId,
+    });
+  }
+
+  @Delete(':id')
+  async deleteArticle(@Param('id') id, @Request() req) {
+    return this.articlesService.deleteArticle({
+      id,
+      authorId: req.userId,
+    });
   }
 }
