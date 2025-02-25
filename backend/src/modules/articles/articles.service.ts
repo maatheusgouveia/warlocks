@@ -13,7 +13,7 @@ export class ArticlesService {
     return this.prisma.article.findMany({
       include: {
         comments: true,
-        author: true,
+        author: { omit: { password: true } },
       },
     });
   }

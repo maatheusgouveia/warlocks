@@ -20,7 +20,7 @@ export class UsersController {
     const user = this.usersService.getUserById(id);
 
     if (!user) {
-      throw new NotFoundException(`Usuário com ID ${id} não encontrado`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
 
     return user;
@@ -36,8 +36,8 @@ export class UsersController {
   deleteUser(@Param('id') id: string): string {
     const success = this.usersService.deleteUserById(id);
     if (!success) {
-      throw new NotFoundException(`Usuário com ID ${id} não encontrado`);
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
-    return `Usuário com ID ${id} deletado com sucesso`;
+    return `User with ID ${id} successfully deleted`;
   }
 }

@@ -8,7 +8,10 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async getUserById(userId: string) {
-    return this.prisma.user.findUnique({ where: { id: userId } });
+    return this.prisma.user.findUnique({
+      where: { id: userId },
+      omit: { password: true },
+    });
   }
 
   async deleteUserById(userId: string) {
@@ -19,9 +22,9 @@ export class UsersService {
     try {
       return this.prisma.user.create({
         data: {
+          role: Role.USER,
           ...data,
           password: await bcrypt.hash(data.password, 10),
-          role: Role.USER,
         },
       });
     } catch (error) {
