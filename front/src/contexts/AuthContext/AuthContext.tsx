@@ -7,8 +7,8 @@ import {
 	useEffect,
 	ReactNode,
 } from "react";
-import { useRouter } from "next/navigation";
 import { api } from "@/services/api";
+import { useRouter, usePathname } from "next/navigation";
 
 interface User {
 	id: string;
@@ -43,6 +43,8 @@ const initialAuthData: Auth = {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
+	const pathname = usePathname();
+
 	const [auth, setAuth] = useState<Auth>(initialAuthData);
 
 	const login = async ({ email, password }: Login) => {
@@ -65,12 +67,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 				setAuth({ isAuthenticated: true, token, user });
 				api.defaults.headers.authorization = `Bearer ${token}`;
 			} else {
-				router.push("/");
+				router.push("/login");
 			}
 		}
 
 		verify();
-	}, []);
+	}, [pathname]);
 
 	return (
 		<AuthContext.Provider value={{ auth, login, logout }}>
