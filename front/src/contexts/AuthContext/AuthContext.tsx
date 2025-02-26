@@ -48,7 +48,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	const [auth, setAuth] = useState<Auth>(initialAuthData);
 
 	const login = async ({ email, password }: Login) => {
-		api.post("/auth/login", { email, password });
+		const response = await api.post("/auth/login", { email, password });
+
+		const updatedAuth = {
+			isAuthenticated: true,
+			token: response.data.access_token,
+			user: response.data.user,
+		};
+
+		localStorage.setItem("@warlocks/auth", JSON.stringify(updatedAuth));
+		setAuth(updatedAuth);
+		api.defaults.headers.authorization = `Bearer ${response.data.access_token}`;
+		router.push("/");
 	};
 
 	const logout = () => {

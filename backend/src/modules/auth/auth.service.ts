@@ -10,10 +10,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(data: {
-    email: string;
-    password: string;
-  }): Promise<{ access_token: string }> {
+  async signIn(data: { email: string; password: string }) {
     const user = await this.usersService.getUserByEmail(data.email);
 
     if (!user) {
@@ -28,8 +25,11 @@ export class AuthService {
 
     const payload = { sub: user.id };
 
+    delete user.password;
+
     return {
       access_token: await this.jwtService.signAsync(payload),
+      user,
     };
   }
 }
