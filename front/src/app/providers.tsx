@@ -30,7 +30,7 @@ export function Providers({
 					messages={messages}
 					timeZone={timeZone}
 				>
-					<ProgressBar className="fixed top-0 h-1 rounded-r bg-primary">
+					<ProgressBar className="fixed top-0 h-1 rounded-r bg-gradient-to-r from-purple-500 to-indigo-500">
 						<AuthProvider>{children}</AuthProvider>
 					</ProgressBar>
 				</NextIntlClientProvider>

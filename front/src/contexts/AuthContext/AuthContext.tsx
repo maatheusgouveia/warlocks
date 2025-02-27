@@ -9,6 +9,7 @@ import {
 } from "react";
 import { api } from "@/services/api";
 import { useRouter, usePathname } from "next/navigation";
+import { useProgressBar } from "@/components/ProgressBar";
 
 interface User {
 	id: string;
@@ -44,10 +45,12 @@ const initialAuthData: Auth = {
 export function AuthProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
 	const pathname = usePathname();
+	const { start, done } = useProgressBar();
 
 	const [auth, setAuth] = useState<Auth>(initialAuthData);
 
 	const login = async ({ email, password }: Login) => {
+		start();
 		const response = await api.post("/auth/login", { email, password });
 
 		const updatedAuth = {
@@ -60,13 +63,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 		setAuth(updatedAuth);
 		api.defaults.headers.authorization = `Bearer ${response.data.access_token}`;
 		router.push("/");
+		done();
 	};
 
 	const logout = () => {
+		start();
 		localStorage.removeItem("@warlocks/auth");
 		setAuth(initialAuthData);
 		delete api.defaults.headers.authorization;
-		router.push("/");
+
+		router.push("/login");
+		done();
 	};
 
 	useEffect(() => {

@@ -1,8 +1,10 @@
 "use client";
+
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useAuthentication } from "@/contexts/AuthContext";
 import { Button, Card, Input, Spacer } from "@heroui/react";
+import { useState } from "react";
 
 const validationSchema = Yup.object({
 	email: Yup.string().email("Email inválido").required("Campo obrigatório"),
@@ -13,9 +15,12 @@ const validationSchema = Yup.object({
 
 export default function LoginPage() {
 	const { login } = useAuthentication();
+	const [isLoading, setLoading] = useState(false);
 
-	function handleLogin(values: { email: string; password: string }) {
-		login({ email: values.email, password: values.password });
+	async function handleLogin(values: { email: string; password: string }) {
+		setLoading(true);
+		await login({ email: values.email, password: values.password });
+		setLoading(false);
 	}
 
 	return (
@@ -72,6 +77,8 @@ export default function LoginPage() {
 							<Button
 								type="submit"
 								className="w-full shadow bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-2 rounded-lg"
+								isLoading={isLoading}
+								isDisabled={isLoading}
 							>
 								Entrar
 							</Button>
