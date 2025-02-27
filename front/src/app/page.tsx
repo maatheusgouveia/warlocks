@@ -1,31 +1,16 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/services/api";
 import { Image } from "@heroui/react";
-import articleCover from "@/assets/images/article.jpeg";
+import { useQuery } from "@tanstack/react-query";
 
-interface Article {
-	id: string;
-	title: string;
-	content: string;
-	authorId: string;
-	createdAt: string;
-	updatedAt: string;
-	comments: [];
-	author: {
-		id: string;
-		name: string;
-		email: string;
-		role: string;
-		createdAt: string;
-		updatedAt: string;
-	};
-}
+import { api } from "@/services/api";
+import { Article } from "@/@types/article";
+import { queryKeys } from "@/constants/query-keys";
+import articleCover from "@/assets/images/article.jpeg";
 
 export default function Home() {
 	const { data } = useQuery({
-		queryKey: ["articles"],
+		queryKey: [queryKeys.ARTICLES],
 		queryFn: async () => (await api.get<Array<Article>>("/articles")).data,
 	});
 
@@ -46,11 +31,11 @@ export default function Home() {
 						className="w-full max-w-[400px] lg:max-w-[500px] rounded-lg object-cover"
 					/>
 
-					<div className="flex flex-col text-center lg:text-left">
+					<div className="flex flex-col text-center lg:text-left w-1/2">
 						<h1 className="text-white text-2xl font-bold mb-2">
 							{article.title}
 						</h1>
-						<p className="text-gray-300 text-sm leading-relaxed line-clamp-3">
+						<p className="text-gray-300 text-sm leading-relaxed line-clamp-6">
 							{article.content}
 						</p>
 					</div>
