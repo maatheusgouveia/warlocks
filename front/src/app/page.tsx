@@ -7,15 +7,18 @@ import { api } from "@/services/api";
 import { Article } from "@/@types/article";
 import { queryKeys } from "@/constants/query-keys";
 import articleCover from "@/assets/images/article.jpeg";
+import { LoadingArticles } from "@/components/LoadingArticles";
 
 export default function Home() {
-	const { data } = useQuery({
+	const { data, isLoading } = useQuery({
 		queryKey: [queryKeys.ARTICLES],
 		queryFn: async () => (await api.get<Array<Article>>("/articles")).data,
 	});
 
 	return (
 		<div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#1e1e2f] to-[#12121c] flex-col w-full py-16 gap-12 px-4">
+			{isLoading && <LoadingArticles />}
+
 			{data?.map((article, index) => (
 				<div
 					key={article.id}
