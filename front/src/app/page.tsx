@@ -1,3 +1,7 @@
 export default function Home() {
-	return <div>Warlocks</div>;
+	return (
+		<div>
+			<div></div>
+		</div>
+	);
 }
