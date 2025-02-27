@@ -1,7 +1,5 @@
 # Plataforma de Artigos - Warlocks Tecnologia
 
-Este repositório contém a implementação da plataforma de artigos desenvolvida para o desafio técnico da Warlocks Tecnologia. A solução é composta por um backend desenvolvido com NestJS e um frontend utilizando Next.js.
-
 ## Tecnologias Utilizadas
 
 ### Backend:
