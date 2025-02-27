@@ -1,3 +1,10 @@
 {
-	"greeting": "Welcome to Warlocks website"
+	"header": {
+		"subscribe": "Subscribe",
+		"logout": "Logout"
+	},
+	"footer": {
+		"made with": "Made with",
+		"by": "by"
+	}
 }

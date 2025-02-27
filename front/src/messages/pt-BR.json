@@ -1,3 +1,10 @@
 {
-	"greeting": "Bem-vindo ao Warlocks"
+	"header": {
+		"subscribe": "Inscreva-se",
+		"logout": "Sair"
+	},
+	"footer": {
+		"made with": "Feito com",
+		"by": "por"
+	}
 }
